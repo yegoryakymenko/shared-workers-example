@@ -8,7 +8,6 @@ import { SharedWorkerService } from './services/shared-worker.service';
     standalone: false
 })
 export class AppComponent {
-  // @ts-ignore
   protected readonly count: WritableSignal<number> = signal(0);
   private readonly sharedWorker = inject(SharedWorkerService);
 
@@ -19,10 +18,10 @@ export class AppComponent {
       this.count.set(e.data);
     };
 
-    this.sharedWorker.sendMessage(this.count().toString());
+    this.sharedWorker.sendMessage((this.count()).toString());
   }
 
   send() {
-    this.sharedWorker.sendMessage((0).toString());
+    this.sharedWorker.sendMessage((this.count() + 1).toString());
   }
 }
