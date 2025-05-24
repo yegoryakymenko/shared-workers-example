@@ -24,7 +24,7 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/assets/worker.js"
+              "src/app/core/web-workers/*"
             ],
             "styles": [
               "src/styles.css"

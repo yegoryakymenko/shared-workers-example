@@ -12,6 +12,7 @@ onconnect = function (e) {
   port.onmessage = function (event) {
     counter += parseInt(event.data, 10);
 
+
     ports.forEach(p => {
       p.postMessage(counter);
     });
