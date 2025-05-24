@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, signal, Component, inject, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, WritableSignal } from '@angular/core';
 import { SharedWorkerService } from './services/shared-worker.service';
 
 @Component({
@@ -7,23 +7,23 @@ import { SharedWorkerService } from './services/shared-worker.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  protected count = signal(0);
+  // @ts-ignore
+  protected readonly count: WritableSignal<number> = signal(0);
   private readonly sharedWorker = inject(SharedWorkerService);
 
   constructor() {
     this.sharedWorker.port!.onmessage = (e) => {
       console.log('[Angular] Message from worker:', e.data);
       // You can act on this data
-      // this.ngZone.run(() => {
-        this.count.set(e.data);
-      // })
+      this.count.set(e.data);
     };
 
     this.sharedWorker.sendMessage(this.count().toString());
   }
 
   send() {
-    this.sharedWorker.sendMessage((++this.count).toString());
+    //@ts-ignore
+    this.sharedWorker.sendMessage((0).toString());
   }
 }
 function signal(arg0: number) {
