@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } from '@angular/core';
 import { SharedWorkerService } from './services/shared-worker.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AppComponent {
   // @ts-ignore
@@ -22,11 +23,6 @@ export class AppComponent {
   }
 
   send() {
-    //@ts-ignore
     this.sharedWorker.sendMessage((0).toString());
   }
 }
-function signal(arg0: number) {
-    throw new Error('Function not implemented.');
-}
-
